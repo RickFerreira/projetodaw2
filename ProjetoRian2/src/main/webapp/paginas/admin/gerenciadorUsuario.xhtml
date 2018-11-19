@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Gerenciar Usuários</title>
+</h:head>
+
+
+<h:body>
+	<p:messages />
+
+	<h:form>
+		<p:panelGrid columns="2" >
+			<f:facet name="caption">
+				<h:outputText value="Filtros" />
+			</f:facet>
+			<f:facet name="header">
+				<h:outputText value="Usuário" />
+			</f:facet>
+
+			<p:outputLabel value="Nome: " for="nomeField" />
+			<p:inputText id="nomeField" value="#{usuarioBean.entidade.nome}"
+				label="Nome" style="width:350px" />
+
+			<p:outputLabel value="E-mail: " for="emailField" />
+			<p:inputText id="emailField" value="#{usuarioBean.entidade.email}"
+				label="Nome" style="width:350px" />
+
+			<p:outputLabel value="Nascimento: " for="nascimentoField" />
+			<p:calendar id="nascimentoField"
+				value="#{usuarioBean.entidade.nascimento}" label="Nascimento" />
+
+			<p:commandButton id="btnNovo" value="Novo"
+				action="#{usuarioBean.save()}" ajax="false" />
+			<p:commandButton id="btnLimpar" value="Limpar"
+				action="#{usuarioBean.limpar()}" ajax="false" />
+		</p:panelGrid>
+
+
+		<p:dataTable id="dataTableEntidades" border="1" var="entidade"
+			value="#{usuarioBean.entidades}">
+			<p:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{entidade.id}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{entidade.nome}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Email</f:facet>
+				<h:outputText value="#{entidade.email}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">Nascimento</f:facet>
+				<h:outputText value="#{entidade.nascimento}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</p:column>
+			<p:column>
+				<f:facet name="header">Opções</f:facet>
+				<p:commandButton value="Remover" ajax="false"
+					action="#{usuarioBean.remove(entidade)}"></p:commandButton>
+				<p:commandButton value="Editar" ajax="false"
+					action="#{usuarioBean.editar(entidade.id)}"></p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

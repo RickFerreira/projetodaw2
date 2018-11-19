@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+	<title>Editar Computador</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:tabMenu>
+			<p:menuitem icon="ui-icon-disk" value="PCs Prontos"
+				url="pcsSalvos.xhtml" />
+			<p:menuitem icon="ui-icon-disk" value="Monte seu PC"
+				url="montarPC.xhtml" />
+		</p:tabMenu>
+
+
+		<p:panelGrid style="margin-botton:20px" columns="2" layout="grid">
+			<p:outputLabel value="Nome do PC:" />
+			<p:inputText id="nomePc" label="nome"
+				value="#{computadorService.pcEditado.nome}" style="width:350px" />
+
+			<p:outputLabel value="Placa mãe:" />
+			<p:selectOneMenu id="placaMae" converter="ConversorPeca"
+				style="width:350px" value="#{computadorService.pcEditado.placaMae}">
+				<f:selectItems value="#{computadorService.placas}"  var="placaMaeE"
+					itemLabel="#{placaMaeE.nome}" itemValue="#{placaMaeE}" />
+			</p:selectOneMenu>
+
+			<p:outputLabel value="Processador:" />
+			<p:selectOneMenu id="cpu" converter="ConversorPeca"
+				panelStyle="width:350px" style="width:350px"
+				value="#{computadorService.pcEditado.cpu}">
+				<f:selectItems value="#{computadorService.cpus}" var="cpuE"
+					itemLabel="#{cpuE.nome}" itemValue="#{cpuE}" />
+			</p:selectOneMenu>
+
+
+
+			<p:outputLabel value="Fonte:" />
+			<p:selectOneMenu id="fonte"  converter="ConversorPeca"
+				panelStyle="width:350px" style="width:350px"
+				value="#{computadorService.pcEditado.fonte}">
+				<f:selectItems value="#{computadorService.fontes}" var="fonteE"
+					itemLabel="#{fonteE.nome}" itemValue="#{fonteE}" />
+			</p:selectOneMenu>
+		</p:panelGrid>
+		<p:panelGrid style="margin-botton:20px" columns="4" layout="grid">
+
+			<p:outputLabel value="Memorias RAM:" />
+			<p:selectOneMenu id="ram"  converter="ConversorPeca"
+				panelStyle="width:350px" style="width:350px"
+				value="#{computadorService.pcEditado.ram}">
+				<f:selectItems value="#{computadorService.rams}" var="ramE"
+					itemLabel="#{ramE.nome}" itemValue="#{ramE}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Quantidade: " />
+			<p:spinner id="qntRam" style="width:300px" min="1" max="6"
+				value="#{computadorService.pcEditado.quantRam}" />
+
+			<p:outputLabel value="Memoria Fisica (HD):" />
+			<p:selectOneMenu id="hd" converter="ConversorPeca"
+				panelStyle="width:350px" style="width:350px"
+				value="#{computadorService.pcEditado.hd}">
+				<f:selectItems value="#{computadorService.hds}" var="hdE"
+					itemLabel="#{hdE.nome}" itemValue="#{hdE}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Quantidade: " />
+			<p:spinner id="qntHd" style="width:300px" min="1" max="6"
+				value="#{computadorService.pcEditado.quantHd}" />
+
+			<p:outputLabel value="Placa de Video:" />
+			<p:selectOneMenu id="video" converter="ConversorPeca"
+				panelStyle="width:350px" style="width:350px"
+				value="#{computadorService.pcEditado.video}">
+				<f:selectItems value="#{computadorService.videos}" var="videoE"
+					itemLabel="#{videoE.nome}" itemValue="#{videoE}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Quantidade: " />
+			<p:spinner id="qntVideo" style="width:300px" min="1" max="6"
+				value="#{computadorService.pcEditado.quantVideo}" />
+
+		</p:panelGrid>
+		
+		<p:commandButton value="Salvar Edição" action="#{computadorService.salvarEdicao()}"/>
+
+	</h:form>
+</h:body>
+</html>

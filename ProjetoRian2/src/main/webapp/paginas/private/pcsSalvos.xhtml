@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:head>
+	<title>Computadores Prontos</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<p:growl id="growl" showDetail="true" sticky="true" />
+		<p:tabMenu>
+			<p:menuitem icon="ui-icon-disk" value="Monte seu PC"
+				url="montarPC.xhtml" />
+			<p:menuitem icon="ui-icon-disk" value="PCs Prontos"
+				url="pcsSalvos.xhtml" />
+
+		</p:tabMenu>
+
+		<p:carousel value="#{computadorService.pcs}"
+			headerText="Seus Computadores" var="pc"
+			itemStyle="text-align: center; color: grey" responsive="true">
+			<p:panelGrid columns="3" style="width:100%;margin:10px 0px"
+				layout="grid" columnClasses="label,value,value">
+
+				<f:facet name="header">
+					<p:outputLabel style="font-weight: bold;"
+						value="Nome: #{pc.nome}. ID: #{pc.id}" />
+				</f:facet>
+
+				<h:outputText value="Placa Mãe: " />
+				<h:outputText value="#{pc.placaMae.marca} #{pc.placaMae.nome}" />
+				<h:outputText
+					value="Quantidade: #{pc.quantPlaM} x R$#{pc.placaMae.preco}" />
+
+				<h:outputText value="Processador: " />
+				<h:outputText value="#{pc.cpu.marca} #{pc.cpu.nome}" />
+				<h:outputText
+					value="Quantidade: #{pc.quantCpu} x R$#{pc.cpu.preco}" />
+
+				<h:outputText value="Fonte: " />
+				<h:outputText value="#{pc.fonte.marca} #{pc.fonte.nome}" />
+				<h:outputText
+					value="Quantidade: #{pc.quantFonte} x R$#{pc.fonte.preco}" />
+
+				<h:outputText value="RAM: " />
+				<h:outputText value="#{pc.ram.marca} #{pc.ram.nome}" />
+				<h:outputText
+					value="Quantidade: #{pc.quantRam} x R$#{pc.ram.preco}" />
+
+				<h:outputText value="HD: " />
+				<h:outputText value="#{pc.hd.marca} #{pc.hd.nome}" />
+				<h:outputText value="Quantidade: #{pc.quantHd} x R$#{pc.hd.preco}" />
+
+				<h:outputText value="Placa de Video: " />
+				<h:outputText value="#{pc.video.marca} #{pc.video.nome}" />
+				<h:outputText
+					value="Quantidade: #{pc.quantVideo} x R$#{pc.video.preco}" />
+
+				<h:outputText value="Preço total: " />
+				<h:outputText value="R$#{pc.precoTotal}" />
+			</p:panelGrid>
+		</p:carousel>
+
+		<p:panelGrid columns="2" id="buscaPc">
+			<h:outputText value="Digite o id do seu PC:" />
+			<p:inputText value="#{computadorService.idPc}" id="idPcBuscado" />
+		</p:panelGrid>
+		<p:commandButton value="Buscar PC" update="growl: form"
+			action="#{computadorService.buscarPC()}" />
+
+		<p:panelGrid columns="3" style="width:100%;margin:10px 0px"
+			layout="grid" columnClasses="label,value,value"
+			rendered="#{computadorService.renderPanelGridPcBuscado}">
+
+			<f:facet name="header">
+				<p:outputLabel style="font-weight: bold;"
+					value="PC Buscado: #{computadorService.pcBuscado.nome}" />
+			</f:facet>
+
+			<h:outputText value="Placa Mãe: " />
+			<h:outputText value="#{computadorService.pcBuscado.placaMae.marca} #{computadorService.pcBuscado.placaMae.nome}" />
+			<h:outputText
+				value="Quantidade: #{computadorService.pcBuscado.quantPlaM} x R$#{computadorService.pcBuscado.placaMae.preco}" />
+
+			<h:outputText value="Processador: " />
+			<h:outputText value="#{computadorService.pcBuscado.cpu.marca} #{computadorService.pcBuscado.cpu.nome}" />
+			<h:outputText
+				value="Quantidade: #{computadorService.pcBuscado.quantCpu} x R$#{computadorService.pcBuscado.cpu.preco}" />
+
+			<h:outputText value="Fonte: " />
+			<h:outputText value="#{computadorService.pcBuscado.fonte.marca} #{computadorService.pcBuscado.fonte.nome}" />
+			<h:outputText
+				value="Quantidade: #{computadorService.pcBuscado.quantFonte} x R$#{computadorService.pcBuscado.fonte.preco}" />
+
+			<h:outputText value="RAM: " />
+			<h:outputText value="#{computadorService.pcBuscado.ram.marca} #{computadorService.pcBuscado.ram.nome}" />
+			<h:outputText
+				value="Quantidade: #{computadorService.pcBuscado.quantRam} x R$#{computadorService.pcBuscado.ram.preco}" />
+
+			<h:outputText value="HD: " />
+			<h:outputText value="#{computadorService.pcBuscado.hd.marca} #{computadorService.pcBuscado.hd.nome}" />
+			<h:outputText
+				value="Quantidade: #{computadorService.pcBuscado.quantHd} x R$#{computadorService.pcBuscado.hd.preco}" />
+
+			<h:outputText value="Placa de Video: " />
+			<h:outputText value="#{computadorService.pcBuscado.video.marca} #{computadorService.pcBuscado.video.nome}" />
+			<h:outputText
+				value="Quantidade: #{computadorService.pcBuscado.quantVideo} x R$#{computadorService.pcBuscado.video.preco}" />
+
+			<h:outputText value="Preço total: " />
+			<h:outputText value="R$#{computadorService.pcBuscado.precoTotal}" />
+
+
+			<p:column>
+				<p:commandButton value="Editar PC" id="editarPcBuscado"
+					update="growl: form" action="#{computadorService.editarPC()}" />
+				<p:commandButton value="Remover PC" id="removerPcBuscado" action="#{computadorService.removerPC()}"
+					update="growl: form" />
+			</p:column>
+		</p:panelGrid>
+
+
+	</h:form>
+</h:body>
+</html>
